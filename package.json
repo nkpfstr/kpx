@@ -1,0 +1,20 @@
+{
+  "name": "kpx",
+  "version": "0.1.0",
+  "description": ":robot: An opinionated utility for scaffolding Discord.js bots",
+  "main": "bin/kpx.js",
+  "bin": {
+    "kpx": "bin/kpx.js"
+  },
+  "repository": {},
+  "author": "Nick Pfisterer <nick@lunamachine.net>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "exeq": "^3.0.0",
+    "fs-extra": "^2.0.0",
+    "inquirer": "^3.0.1",
+    "lloogg": "^0.1.1",
+    "opn": "^4.0.2"
+  }
+}
