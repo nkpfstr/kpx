@@ -1,7 +1,7 @@
 {
   "name": "kpx",
   "version": "0.1.0",
-  "description": ":robot: An opinionated utility for scaffolding Discord.js bots",
+  "description": ":robot: A utility for building Discord bots",
   "main": "bin/kpx.js",
   "bin": {
     "kpx": "bin/kpx.js"
