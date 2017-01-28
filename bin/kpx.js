@@ -13,44 +13,28 @@ const opn = require('opn')
 kpx
   .version(require('../package').version)
 
-// kpx create
 kpx
-  .command('create')
-  .alias('c')
-  .description('Scaffold a functioning bot with basic commands')
-  .option('-i, --client_id <id>', 'Client ID')
-  .option('-t, --token <token>', 'Bot token')
-  .action(options => {
-    let id = options.client_id
-    let token = options.token
-
-    // Set client ID environment variable
-    if (id) {
-      process.env.client_id = id
-    }
-
-    // Set bot token environment variable
-    if (token) {
-      process.env.bot_token = token
-    }
-
-    // Ask for not name
+  .command('new')
+  .alias('n')
+  .description('Create a new bot')
+  .action(() => {
+    // Ask for bot name
     ask.prompt({
       type: 'input',
       name: 'bot_name',
-      message: 'Enter bot name'
+      message: 'Enter bot name:'
     }).then(answers => {
-      // Copy boilerplate files to cwd/[bot_name]
+      // Copy boilerplate files
       fs.copy(`${__dirname}/../boilerplate`, answers.bot_name, err => {
+        // Handle errors
         if (err) return log.error(err)
 
         // Install dependencies
-        log.success('Starter files copied successfully')
+        log.success('Project files created')
         log.info('Installing dependencies...')
         exeq(`cd ${process.cwd()}/${answers.bot_name} && yarn`).then(results => {
           // Setup is complete
-          log.success(`Your bot is ready. Happy coding!`)
-          log.info(`Tip: Run 'kpx auth' when you're ready to add the bot to your server.`)
+          log.success(`Your bot is ready. Happy coding! ♥`)
         })
       })
     })
@@ -67,34 +51,13 @@ kpx
       name: 'client_id',
       message: 'Enter client ID'
     }).then(answers => {
-      log.success(`Got it!`)
-      log.info('Opening auth page...')
-      // Set client ID env var
-      process.env.client_id = answers.client_id
-      // Open bot auth page in default browser
-      opn(`https://discordapp.com/oauth2/authorize?client_id=${answers.client_id}&scope=bot`)
-        .then(() => {
-          ask.prompt({
-            type: 'confirm',
-            name: 'bot_token',
-            message: 'Fetch bot token'
-          }).then(answers => {
-            if (answers.bot_token) {
-              // If yes, open bot info page in default browser
-              log.info('Opening bot info page...')
-              opn(`https://discordapp.com/developers/applications/me/${process.env.client_id}`)
-            }
-
-            // Instruct user to set bot token as env var
-            log.info(
-              'Set your token as an environment variable:',
-              'set bot_token=your_token_here',
-              '',
-              'Run your bot:',
-              'node bot.js'
-            )
-          })
-        })
+      if (answers.client_id.match(/^\d+$/)) {
+        log.success(`Client ID OK`)
+        // Open bot auth page in default browser
+        opn(`https://discordapp.com/oauth2/authorize?client_id=${answers.client_id}&scope=bot`)
+      } else {
+        log.error('Error: Client ID should only contain numbers')
+      }
     })
   })
 
