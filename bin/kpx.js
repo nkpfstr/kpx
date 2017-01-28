@@ -25,7 +25,7 @@ kpx
       message: 'Enter bot name:'
     }).then(answers => {
       // Copy boilerplate files
-      fs.copy(`${__dirname}/../boilerplate`, answers.bot_name, err => {
+      fs.copy(`${__dirname}/../template`, answers.bot_name, err => {
         // Handle errors
         if (err) return log.error(err)
 
@@ -47,10 +47,12 @@ kpx
   .description('Authorize your bot to join a server')
   .action(() => {
     ask.prompt({
+      // Ask for client ID
       type: 'input',
       name: 'client_id',
       message: 'Enter client ID'
     }).then(answers => {
+      // Make sure the client ID only contains numbers
       if (answers.client_id.match(/^\d+$/)) {
         log.success(`Client ID OK`)
         // Open bot auth page in default browser
