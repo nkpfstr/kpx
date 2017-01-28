@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "discord.js": "^11.0.0",
+    "lloogg": "^0.1.1"
+  }
+}
