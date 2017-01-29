@@ -18,16 +18,38 @@ kpx
   .alias('n')
   .description('Create a new bot')
   .action(() => {
-    // Ask for bot name
-    ask.prompt({
-      type: 'input',
-      name: 'bot_name',
-      message: 'Enter bot name:'
-    }).then(answers => {
+    // Initialize questions
+    let questions = [
+      {
+        type: 'input',
+        name: 'bot_name',
+        message: 'Enter bot name:'
+      },
+      {
+        type: 'input',
+        name: 'bot_prefix',
+        message: 'Enter bot command prefix:'
+      }
+    ]
+
+    // Ask questions
+    ask.prompt(questions).then(answers => {
       // Copy boilerplate files
       fs.copy(`${__dirname}/../template`, answers.bot_name, err => {
         // Handle errors
         if (err) return log.error(err)
+
+        // Initialize bot config
+        let config = {
+          name: answers.bot_name,
+          prefix: answers.bot_prefix
+        }
+
+        // Write bot config to file
+        fs.writeJson(`${answers.bot_name}/config.json`, config, err => {
+          // Handle errors
+          if (err) log.error(err)
+        })
 
         // Install dependencies
         log.success('Project files created')
@@ -54,7 +76,6 @@ kpx
     }).then(answers => {
       // Make sure the client ID only contains numbers
       if (answers.client_id.match(/^\d+$/)) {
-        log.success(`Client ID OK`)
         // Open bot auth page in default browser
         opn(`https://discordapp.com/oauth2/authorize?client_id=${answers.client_id}&scope=bot`)
       } else {
