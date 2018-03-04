@@ -1,20 +1,38 @@
 {
   "name": "kpx",
   "version": "0.1.0",
-  "description": ":robot: A utility for building Discord bots",
-  "main": "bin/kpx.js",
+  "description": ":robot: Create your next Discord bot in 30 seconds",
+  "keywords": [
+    "discord",
+    "discord.js",
+    "akairo",
+    "bot",
+    "scaffolding",
+    "framework",
+    "cli"
+  ],
+  "homepage": "https://github.com/polymoon/kpx",
+  "bugs": "https://github.com/polymoon/kpx/issues",
+  "repository": "polymoon/kpx",
+  "license": "MIT",
+  "author": "Nick Pfisterer <nick@polymoon.net>",
   "bin": {
     "kpx": "bin/kpx.js"
   },
-  "repository": {},
-  "author": "Nick Pfisterer <nick@lunamachine.net>",
-  "license": "MIT",
+  "engines": {
+    "node": "8.9.x"
+  },
   "dependencies": {
-    "commander": "^2.9.0",
-    "exeq": "^3.0.0",
-    "fs-extra": "^2.0.0",
-    "inquirer": "^3.0.1",
-    "lloogg": "^0.1.1",
-    "opn": "^4.0.2"
+    "commander": "^2.14.1",
+    "execa": "^0.9.0",
+    "fs-extra": "^5.0.0",
+    "listr": "^0.13.0",
+    "lloogg": "^0.2.0",
+    "opn": "^5.2.0",
+    "prompts": "^0.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "format": "prettier-standard bin/*.js"
   }
 }
