@@ -1,2 +1,2 @@
 # kpx
-:robot: A utility for building Discord bots
+:robot: A command line utility for KPX
